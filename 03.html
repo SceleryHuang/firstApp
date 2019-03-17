@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body><!--引入包-->
+<script src = "node_modules/vue/dist/vue.js"></script>
+
+<div id="app"></div>
+
+<script>
+  new Vue({
+    el:"#app",
+    template:`
+    <div>
+        <h1 v-show="isShow">1</h1>
+        <h1 v-show="isShow">2</h1>
+        <h1 v-show="isShow">3</h1>
+        <h1 v-if="isShow">4</h1>
+        <button @click="changeIsShow">点我行为更酷</button>
+    </div>
+    `,
+    data:function () {
+      return{
+        isShow:true,
+      }
+    },
+    methods:{
+      changeIsShow:function () {
+        // this 就是data return 出去的对象
+        this.isShow = !this.isShow
+      }
+    }
+
+  })
+</script>
+</body>
+</html>

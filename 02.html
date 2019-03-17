@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+      .a{
+        background-color: hotpink;
+      }
+      .b{
+        background-color: blue;
+      }
+    </style>
+</head>
+<body><!--引入包-->
+<script src = "node_modules/vue/dist/vue.js"></script>
+
+<div id="app"></div>
+
+<script>
+  new Vue({
+    el:"#app",
+    template:`
+    <div>
+        <span v-text="myText"></span>
+        <hr/>
+        <span v-html="myHtml"></span>
+        <hr/>
+        <!--//以下三个指令使用必须是相邻的DOM元素-->
+        <button v-if="num ==1">测试v-if</button>
+        <button v-else-if="num ==2">测试 v-else-if</button>
+        <button v-else >测试v-else</button>
+        <hr/>
+        <button v-show="isShow" >测试v-show</button>
+        <hr/>
+        <!--//v-bind 单向数据流-->
+        <input type="text" v-bind:value = "myValue"/>
+        <hr/>
+        <button v-on:click="myValue ='abc' " >点我改变myValue</button>
+        <hr/>
+        <!--//@是绑定事件,简写形式-->
+        <button @click="myValue ='def' " >点我改变myValue，简写</button>
+        <hr/>
+        <!--//v-model 只能给具备value 属性的元素进行双向-->
+        <input type="text" v-model="myValue"/>
+        当用户输入XXXX时，显示下面的button
+        <hr/>
+        <button v-show="myValue == 'XXXX' ">用户输入的是XXXX</button>
+        <hr/>
+        <ul>
+            <li v-for="item in stus" :class="item.myClass">
+                {{ item.name}}
+            </li>
+        </ul>
+        <hr/>
+        <ul>
+            <li v-for="(val,key,index) in stus2">
+                val:{{val}}
+                key:{{key}}
+                index:{{index}}
+            </li>
+        </ul>
+     </div>
+    `,
+    data:function () {
+      return{
+        myText:'<h1>我是黄</h1>',
+        myHtml:'<h1>我是Html</h1>',
+        isExit: true,
+        num:2,
+        isShow:true,
+        myValue:"哈哈哈",
+        stus:[{name:'黄',myClass:'a'},{name:'小',myClass:'b'},{name:'芹',myClass:'a'}],
+        stus2:{'A':"张三",'B':"李四",'C':"王五"}
+      }
+    }
+
+  })
+</script>
+</body>
+</html>
