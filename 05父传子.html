@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body><!--引入包-->
+
+
+    <div id="app"></div>
+
+    <script src = "node_modules/vue/dist/vue.js"></script>
+    <script>
+      var Son= {
+        template:`
+        <div>
+        接收到的父组件数据是：{{title}}
+        <h1>1</h1>
+        <h1>2</h1>
+        <ul>
+        <li></li>
+        <button>改变显示</button>
+</ul>
+</div>
+`,
+        props:['title'],
+      };
+      //父向子传递，就是c-bind 给元素属性赋值
+      var App = {
+        // 声明
+        components:{
+          son:Son
+        },
+        //使用
+        template:`
+        <div>
+        <son :title="XXX"></son>
+        <!-- 传递常量<son title='hello'></son>-->
+        </div>
+        `,
+        data:function () {
+        return { XXX:'我是XXX数据'}
+      }
+      };
+
+      new Vue({
+        el:'#app',
+        // 声明子组件
+        components:{
+          app:App
+        },
+        template:'<app/>'
+
+      });
+
+      // 总结
+      // 父用子：先有子 声明子 使用子
+      // 父传子：父传子（属性），子声明（收），子直接用（就像自己的一样）
+
+
+    </script>
+</body>
+</html>
