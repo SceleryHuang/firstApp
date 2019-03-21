@@ -20,9 +20,27 @@
         <ul>
         <li></li>
         <button>改变显示</button>
+        <hr/>
+        单向数据流(vue->html):
+        <input type="text" :value = "text"/><br/>
+        双向数据流(vue->html->vue):
+        <input type="text" v-model= "text"/><br/>
+        <h1/>
+        vue中的东西：{{text}}
 </ul>
 </div>
 `,
+        data:function(){
+          return {
+            XXX:true,
+            text:'hello'
+          }
+        },
+        methods:{
+         ChangeXxx:function () {
+           this.XXX = !this.XXX
+         }
+        },
         props:['title'],
       };
       //父向子传递，就是c-bind 给元素属性赋值

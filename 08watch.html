@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+      <div id = "app"></div>
+      <script src = "node_modules/vue/dist/vue.js"></script>
+      <script>
+
+
+        var App = {
+          template:`
+          <div>
+          <input type="text" v-model="myText"/>
+          {{myText}}
+
+          <button @click="stus[0].name ='rose';">改变stus</button>
+          </div>
+          `,
+          data:function () {
+            // 复杂对象的时候，监视不成功，需要深度监视
+
+            return {myText:'',stus:[{name:'jack'}]}
+          },
+          watch:{
+            // key是属于data属性的属性名，value是监视后的行为
+            myText: function (newV,oldV) {
+              console.log(newV,oldV);
+              if(newV === 'iloveyou'){
+                alert('我不爱你');
+              }
+            },
+            stus:{
+              deep:true,
+              handler:function (newV,oldV) {
+                console.log('监视复杂数据类型成功');
+              }
+            }
+          },
+          filters:{
+            reverse:function (dataStr,lang) {
+              return lang + dataStr.split('').reverse().join('');//显示的内容
+            }
+          }
+        };
+
+        new Vue({
+          el:"#app",
+          components:{
+            app:App
+          },
+          template:'<app/>'
+        })
+      </script>
+
+
+</body>
+</html>

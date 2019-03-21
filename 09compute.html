@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+      <div id = "app"></div>
+      <script src = "node_modules/vue/dist/vue.js"></script>
+      <script>
+
+
+        var App = {
+          template:`
+          <div>
+          <input type="text" v-model="n1"/>
+          +
+          <input type="text" v-model="n2"/>
+          *
+          <input type="text" v-model="rate"/>
+          ={{ result }}
+          </div>
+          `,
+          data:function () {
+            // 复杂对象的时候，监视不成功，需要深度监视
+
+            return {
+              n1:0,
+              n2:0,
+              rate:0
+
+            }
+          },
+         computed:{
+            result:function () {
+              // 监视对象，写在了函数内部
+              // 凡是函数内部有this.相关属性，改变都会触发当前函数
+              // 包含原值不变，的缓存机制
+              console.log('监视到了');
+              return( (this.n1-0) + (this.n2-0))*this.rate;
+            }
+          },
+        };
+
+        new Vue({
+          el:"#app",
+          components:{
+            app:App
+          },
+          template:'<app/>'
+        })
+      </script>
+
+
+</body>
+</html>

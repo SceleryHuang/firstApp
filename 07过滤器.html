@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+      <div id = "app"></div>
+      <script src = "node_modules/vue/dist/vue.js"></script>
+      <script>
+        //1.过滤器可以给数据显示进行添油加醋
+        // 需求，原本的数据是abc,添油加醋后的为cba
+        // 需求实现：为了互动性更好，用Input+v-model来实现获取数据到vue中
+        // 输出{{内容|使用过滤器输出}}
+
+        //全局过滤器
+        Vue.filter('myreverse',function (data,arg1) {
+          return arg1 + data.split('').reverse().join('');
+        });
+
+
+        var App = {
+          template:`
+          <div>
+          <input type="text" v-model="myText"/>
+          {{myText | myreverse('英文版:')}}
+          </div>
+          `,
+          data:function () {
+            return {myText:''}
+          },
+          filters:{
+            reverse:function (dataStr,lang) {
+              return lang + dataStr.split('').reverse().join('');//显示的内容
+            }
+          }
+        };
+
+        new Vue({
+          el:"#app",
+          components:{
+            app:App
+          },
+          template:'<app/>'
+        })
+      </script>
+
+
+</body>
+</html>
