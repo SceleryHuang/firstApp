@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+      <div id = "app"></div>
+      <script src = "node_modules/vue/dist/vue.js"></script>
+      <script>
+        var Test = {
+          template:`
+          <div>
+         我是test组件
+</div>`,
+          data:function () {
+            return{
+              text:'hello'
+            }
+          },
+          beforeCreate:function () {
+            //组件创建之前
+           console.log('beforeCreate');
+          },
+          created:function () {
+            // 组件创建之后
+            console.log('created');
+          },
+          //使用该组件就会触发该事件函数（钩子函数）
+          // created中可以操作数据，并且可以事件vue页面的影响，应用：发起ajax请求
+          beforeMount:function () {
+            // vue 装载数据之前，装载数据到DOM
+
+          },
+          mounted:function () {
+            // vue 装载数据之后，装载数据到DOM
+          },
+
+
+          // 基于数据改变，影响页面
+          beforeUpdate:function () {
+            console.log('beforeUpdate');
+          },
+          Updated:function () {
+            console.log('Updated');
+          },
+          // 以上两个是当有更改数据才会触发
+          beforeDestroy:function () {
+            console.log('beforeDestroy');
+          },
+          destroyed:function () {
+            console.log('destroyed');
+          },
+          activated:function () {
+            console.log('组件被激活了');
+          },
+          deactivated:function () {
+            console.log('组件被停用了');
+          }
+        };
+
+        var App = {
+          components:{
+            test:Test
+          },
+          data:function(){
+            return{
+              isExist:true
+            }
+
+          },
+          template:`
+          <div>
+            <keep-alive>
+            <test v-if="isExist"></test>
+            </keep-alive>
+            <button @click="isExist =!isExist">子组件生死</button>
+          </div>
+          `,
+        };
+
+
+        new Vue({
+          el:"#app",
+          components:{
+            app:App
+          },
+          template:'<app/>'
+        })
+      </script>
+
+
+</body>
+</html>
