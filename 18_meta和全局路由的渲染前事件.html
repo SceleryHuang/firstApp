@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+      <div id = "app"></div>
+
+      <script src = "node_modules/vue/dist/vue.js"></script>
+
+      <script src = "./vue-router.js"></script>
+      <!--1.引入文件-->
+      <script>
+        var isLogin =false;
+        var Login = {
+          template:`<div>
+          我是登录页面
+          <router-view></router-view>
+</div>`,
+        created:function () {
+          isLogin = true;
+        },
+        };
+        var Music = {
+          template:`<div>
+          我是音乐页面
+          <router-view></router-view>
+          </div>`
+
+        };
+
+        var router = new VueRouter({
+          router:[ //保证login显示login组件
+            {name:'login',path:'/login',component:Login} ,
+            {name:'music',path:'/music',component:Music,meta:{isChecked:true} }
+          ]
+        });
+          //可以多次追加路由规则，动态获取路由规则,更为灵活
+        router.beforeEach(function (to,form,next) {
+          if(to.name ==='login' || to.path ==='/'){
+            next();
+          }else{
+            alert('music?');
+            if(isLogin){
+              next();
+            }else {
+              alert("请登录");
+              next({name:'login'});
+            }
+          }
+          console.log(to);
+          console.log(form);
+          next();
+        });
+
+        var App = {
+          template:`
+          <div>
+          <!--//vue-router内置组件-->
+          <router-link :to = "{name:'login' } ">登录页面</router-link>
+          <router-link :to = "{name:'music' } ">去听歌</router-link>
+          <router-view></router-view>
+</div>
+          `
+        }
+
+
+        // 5.将配置好的路由对象关联到vue实例中
+        new Vue({
+          el:'#app',
+          router:router,
+          components:{
+            app:App
+          },
+          template:'<app/>'
+        });
+        // 6.制定路由改变局部的位置
+
+      </script>
+
+
+</body>
+</html>
