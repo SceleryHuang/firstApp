@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+      <div id = "content"></div>
+      <script src = "node_modules/vue/dist/vue.js"></script>
+      <script>
+        var div = document.getElementById('content');
+
+        // hashchange 事件，url上的部分锚点改变，可以获取这个事件
+        window.addEventListener('hashchange',function () {
+// 根据不同的锚点值，做出不同的显示
+          switch (location.hash) {
+            case '#/login':
+              div.innerHTML = '<h1>登录页面</h1>';
+              break;
+              break;
+            case '#/register':
+              div.innerHTML = '<h1>注册页面</h1>';
+              break;
+
+          }
+        });
+
+      </script>
+
+
+</body>
+</html>
